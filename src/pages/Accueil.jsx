@@ -2,6 +2,9 @@ import axios from "axios";
 import CardWilder from "./../components/CardWilder";
 import CreateWilder from "./CreateWilder";
 import { useState, useEffect } from "react";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 import "./Accueil.css";
 function Accueil() {
   const [wilders, setWilders] = useState([]);
@@ -21,9 +24,10 @@ function Accueil() {
       <CreateWilder getWilders={getWilders} />
       <div className="cardBloc">
         {wilders.map((wilder) => (
-          <CardWilder key={wilder.id} firstName={wilder.first_name} />
+          <CardWilder getWilders={getWilders} key={wilder.id} id={wilder.id} firstName={wilder.first_name} />
         ))}
       </div>
+       <ToastContainer />
     </>
   );
 }
