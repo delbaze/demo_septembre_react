@@ -1,6 +1,10 @@
+import "./CardWilder.css";
 function CardWilder({ firstName }) {
   return (
-    <div>
+    <div className="card">
+      <div className="cardImage">
+        <img src="" />
+      </div>
       <h4>{firstName}</h4>
     </div>
   );
