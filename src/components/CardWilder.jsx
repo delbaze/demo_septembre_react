@@ -15,6 +15,7 @@ function CardWilder({ firstName }) {
       <div className="cardLanguages">
         Langages
       </div>
+      <button>Supprimer</button>
     </div>
   );
 }
