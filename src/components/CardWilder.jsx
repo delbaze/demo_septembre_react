@@ -2,10 +2,9 @@ import "./CardWilder.css";
 import logo from "./person.png";
 import axios from "axios";
 import { toast } from "react-toastify";
-
-function CardWilder({ id, firstName, getWilders}) {
+import { Link } from "react-router-dom";
+function CardWilder({ id, firstName, getWilders, handleEdit }) {
   const handleDelete = () => {
-    console.log(id);
     axios
       .delete("/wilders/delete", {
         data: {
@@ -17,16 +16,12 @@ function CardWilder({ id, firstName, getWilders}) {
           type: response.data.success ? "success" : "error",
         });
         getWilders();
-        // if (response.data.success) {
-        //   toast(response.data.message, {type: "success"});
-        // } else {
-        //   toast(response.data.message, {type: "error"});
-        // }
       })
       .catch((err) => {
         console.log(err);
       });
   };
+
   return (
     <div className="card">
       <div className="cardImage">
@@ -37,6 +32,9 @@ function CardWilder({ id, firstName, getWilders}) {
       </div>
       <div className="cardDescription">description(à faire)</div>
       <div className="cardLanguages">Langages</div>
+      <Link to={`/edit/${id}`}>
+        Editer
+      </Link>
       <button onClick={handleDelete}>Supprimer</button>
     </div>
   );

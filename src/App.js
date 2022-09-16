@@ -1,11 +1,14 @@
-import Accueil from "./pages/Accueil";
+import { NavLink, Outlet } from "react-router-dom";
 // import CreateWilder from "./pages/CreateWilder";
 function App() {
   return (
     <div>
-      Mon app
+      <nav>
+        <NavLink to={"/"}>Accueil</NavLink>
+        <NavLink to={"/create"}>Créer un wilder</NavLink>
+      </nav>
       {/* <CreateWilder /> */}
-      <Accueil />
+      <Outlet />
     </div>
   );
 }
