@@ -3,7 +3,7 @@ import logo from "./person.png";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
-function CardWilder({ id, firstName, getWilders, handleEdit }) {
+function CardWilder({ id, firstName, getWilders, notes }) {
   const handleDelete = () => {
     axios
       .delete("/wilders/delete", {
@@ -31,10 +31,15 @@ function CardWilder({ id, firstName, getWilders, handleEdit }) {
         <h4>{firstName}</h4>
       </div>
       <div className="cardDescription">description(à faire)</div>
-      <div className="cardLanguages">Langages</div>
-      <Link to={`/edit/${id}`}>
-        Editer
-      </Link>
+      <div className="cardLanguages">
+        <h4>Langages</h4>
+        <ul>
+        {notes.map((n) => (
+          <li key={n.id}>{n.language.label}: {n.note}</li>
+        ))}
+        </ul>
+      </div>
+      <Link to={`/edit/${id}`}>Editer</Link>
       <button onClick={handleDelete}>Supprimer</button>
     </div>
   );

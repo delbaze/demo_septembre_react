@@ -30,6 +30,7 @@ function Accueil() {
             key={wilder.id}
             id={wilder.id}
             firstName={wilder.first_name}
+            notes={wilder.notes}
           />
         ))}
       </div>

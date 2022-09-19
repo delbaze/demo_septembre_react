@@ -1,12 +1,9 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import NoteInput from "../components/NoteInput";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 function CreateWilder(props) {
-  console.log(
-    "🟩🟩🟩🟩🟩 ~ file: CreateWilder.jsx ~ line 6 ~ CreateWilder ~ props",
-    props
-  );
   const params = useParams();
   const navigate = useNavigate();
   const location = useLocation();
@@ -17,6 +14,8 @@ function CreateWilder(props) {
     age: "",
   });
 
+  const [languages, setLanguages] = useState([]);
+  const [notes, setNotes] = useState([]); //{ note: 3, languageId: 1}
   const canBeSubmit = () => {
     return !state.first_name || !state.last_name || !state.age;
   };
@@ -40,7 +39,11 @@ function CreateWilder(props) {
         age: "",
       });
     }
+    axios.get("/languages").then((response) => {
+      setLanguages(response.data.languages);
+    });
   }, [id]);
+
 
   const handleSubmit = (e) => {
     e.preventDefault(); //On stoppe le comportement initial du onSubmit
@@ -85,10 +88,27 @@ function CreateWilder(props) {
     setState({ ...state, [name]: value });
   };
 
+  const addNote = () => {
+    setNotes([...notes, { note: "", languageId: "" }]);
+  };
+
+  const handleChangeNote = (e) => {
+    let value = e.target.value;
+    let noteIndex = e.target.dataset.noteindex;
+    let name = e.target.name;
+    console.log("INFOS", value, noteIndex, name);
+    
+    let newNotes = [...notes]
+    newNotes[noteIndex][name] = value; 
+    setNotes(newNotes);
+  };
+  
+  useEffect(() => {
+    console.log("DEPUIS USEEFFECT", notes);
+  }, [notes])
 
   return (
     <div>
-
       <form onSubmit={handleSubmit} action="/">
         <div>
           <label htmlFor="first_name">Nom du wilder</label>
@@ -117,7 +137,19 @@ function CreateWilder(props) {
             required
             value={state.age}
           />
+          <button type="button" onClick={addNote}>
+            Ajouter une note
+          </button>
+          {notes.map((n, index) => (
+            <NoteInput
+              languages={languages}
+              key={index}
+              noteIndex={index}
+              handleChangeNote={handleChangeNote}
+            />
+          ))}
         </div>
+
         <button type="submit" disabled={canBeSubmit()}>
           Ajouter
         </button>
