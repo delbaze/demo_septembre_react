@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import NoteInput from "../components/NoteInput";
-import { useParams, useNavigate, useLocation } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 function CreateWilder(props) {
   const params = useParams();
   const navigate = useNavigate();
-  const location = useLocation();
   const { id } = params;
   const [state, setState] = useState({
     first_name: "",
@@ -30,7 +29,10 @@ function CreateWilder(props) {
           }
         })
         .catch((err) => {
-          console.log(err);
+          console.log(err.response.status);
+            if (err.response.status === 404){
+              toast("Ce wilder n'existe pas",{type: "error"})
+            }
         });
     } else {
       setState({
@@ -154,6 +156,7 @@ function CreateWilder(props) {
           Ajouter
         </button>
       </form>
+      <ToastContainer />
     </div>
   );
 }

@@ -9,7 +9,6 @@ import "./Accueil.css";
 function Accueil() {
   const [wilders, setWilders] = useState([]);
 
-  const [data, setData] = useState({});
   const getWilders = () => {
     axios.get("/wilders").then((response) => {
       console.log(response);

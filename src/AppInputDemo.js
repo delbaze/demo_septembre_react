@@ -17,7 +17,7 @@ function App() {
       <h1>Input Contrôlé</h1>
       <input onChange={handleChange} value={valeurInput} placeholder="Entrez une donnée"/>
       <button onClick={handleValidate}>Valider</button>
-
+    {valeurInput}
     </div>
   );
 }
